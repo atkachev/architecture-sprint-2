@@ -2,6 +2,8 @@ services:
   mongodb1:
     container_name: mongodb1
     image: dh-mirror.gitverse.ru/mongo:latest
+    ports:
+      - '27017:27017'
     volumes:
       - mongodb1_data_container:/data/db
 
@@ -14,7 +16,7 @@ services:
     depends_on:
       - mongodb1
     ports:
-      - 8080:8080
+      - '8080:8080'
     environment:
       MONGODB_URL: "mongodb://mongodb1"
       MONGODB_DATABASE_NAME: "somedb"
