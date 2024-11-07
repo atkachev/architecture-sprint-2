@@ -1,6 +1,5 @@
-version: '3'
+name: mongo-sharding
 services:
-
 #  сервер конфигурации
   configSrv:
     image: mongo:latest # docker образ
@@ -80,9 +79,9 @@ services:
       start_period: 10s
 
   #роутер
-  mongo-sharding_router:
+  mongos_router:
     image: mongo:latest
-    container_name: mongo-sharding_router
+    container_name: mongos_router
     restart: always
     ports:
       - "27020:27020"
@@ -103,18 +102,21 @@ services:
       interval: 5s
       start_period: 10s
 
-  pymongo_api_t2:
-    container_name: pymongo_api_t2
+  pymongo_api:
+    container_name: pymongo_api
     build:
       context: api_app
       dockerfile: Dockerfile
     image: kazhem/pymongo_api:1.0.0
     depends_on:
-      - mongo-sharding_router
+      - mongos_router
     ports:
       - '8080:8080'
+    networks:
+      app-network:
+        ipv4_address: 173.17.0.6
     environment:
-      MONGODB_URL: "mongodb://mongo-sharding_router:27020"
+      MONGODB_URL: "mongodb://mongos_router:27020"
       MONGODB_DATABASE_NAME: "somedb"
 
 networks:
