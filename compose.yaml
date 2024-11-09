@@ -20,6 +20,7 @@ services:
     environment:
       MONGODB_URL: "mongodb://mongodb1"
       MONGODB_DATABASE_NAME: "somedb"
+      REDIS_URL: "redis://<redis-service-name>:6379"
 
 
 volumes:
