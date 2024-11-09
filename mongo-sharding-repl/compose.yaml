@@ -1,6 +1,6 @@
-name: mongo-sharding-repl
+name: mongo-sharding
 services:
-# сервер конфигурации
+  #  сервер конфигурации
   configSrv:
     image: mongo:latest # docker образ
     container_name: configSrv
@@ -20,30 +20,6 @@ services:
         "--bind_ip_all",
         "--port",
         "27017"
-      ]
-    healthcheck:
-      test: [ "CMD", "mongo", "--eval", "db.adminCommand('ping')" ]
-      interval: 5s
-      start_period: 10s
-
-  #роутер
-  mongos_router:
-    image: mongo:latest
-    container_name: mongos_router
-    restart: always
-    ports:
-      - "27020:27020"
-    networks:
-      app-network:
-        ipv4_address: 173.17.0.7
-    command:
-      [
-        "mongos", #обычная mongo в режиме роутера
-        "--configdb",
-        "config_server/configSrv:27017", #передача данных сервера конфигурации
-        "--bind_ip_all",
-        "--port",
-        "27020"
       ]
     healthcheck:
       test: [ "CMD", "mongo", "--eval", "db.adminCommand('ping')" ]
@@ -200,6 +176,30 @@ services:
         "--bind_ip_all", # обратите внимание - она отличается от реплики 1-го шарда
         "--port",
         "27024"
+      ]
+    healthcheck:
+      test: [ "CMD", "mongo", "--eval", "db.adminCommand('ping')" ]
+      interval: 5s
+      start_period: 10s
+
+  #роутер
+  mongos_router:
+    image: mongo:latest
+    container_name: mongos_router
+    restart: always
+    ports:
+      - "27020:27020"
+    networks:
+      app-network:
+        ipv4_address: 173.17.0.7
+    command:
+      [
+        "mongos", #обычная mongo в режиме роутера
+        "--configdb",
+        "config_server/configSrv:27017", #передача данных сервера конфигурации
+        "--bind_ip_all",
+        "--port",
+        "27020"
       ]
     healthcheck:
       test: [ "CMD", "mongo", "--eval", "db.adminCommand('ping')" ]
