@@ -47,7 +47,7 @@ curl --silent http://ifconfig.me
 
 Список доступных эндпоинтов, swagger http://<ip виртуальной машины>:8080/docs
 
-## Скрипт получение количества из MongoDB:
+## Скрипт получение количества из MongoDB,времени выполнения с/без Redis /<collection_name>/users:
 
 ```shell
 scripts/mongo-count.sh

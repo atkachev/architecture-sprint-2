@@ -114,3 +114,11 @@ const db = db.getSiblingDB("somedb");
 print("Количество документов в shard2_r3 = " + db.helloDoc.countDocuments());
 exit();
 '
+
+echo "Проверка времени выполнения запроса с кешированием и без. 5 раза подряд запускается curl"
+for i in $(seq 1 5);
+do
+  curl -o /dev/null -s -w $i' попытка время='%{time_total}\\n -X 'GET' \
+    'http://localhost:8080/helloDoc/users' \
+    -H 'accept: application/json'
+done
