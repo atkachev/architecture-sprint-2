@@ -62,3 +62,8 @@ curl --silent http://ifconfig.me
 ```shell
 scripts/mongo-count.sh
 ```
+
+## Добавление данных
+```shell
+scripts/mongo-add-data.sh
+```
