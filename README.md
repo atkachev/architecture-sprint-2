@@ -56,11 +56,9 @@ curl --silent http://ifconfig.me
 
 Список доступных эндпоинтов, swagger http://<ip виртуальной машины>:8080/docs
 
-## Скрипт получение количества из MongoDB,времени выполнения с/без Redis /<collection_name>/users:
+## Полная статистическая информация
+Скрипт получение количества из MongoDB, реплики/шарды, времени выполнения с/без Redis /<collection_name>/users:
 
 ```shell
 scripts/mongo-count.sh
 ```
-
-В папке /scrips можно запускать только подсчет количество сущностей mongo-count.sh, без добавление новых данных
-еще добавить данные mongo-add-data.sh
